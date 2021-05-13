@@ -17,7 +17,7 @@ html, body {
     flex-direction: column;
 }
 body {
-    background: $white;
+    background: url("../images/webpack-bg.png") no-repeat center center $white;
     > div {
         @extend .allCenter;
     }

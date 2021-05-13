@@ -17,10 +17,19 @@ module.exports = {
         filename: "./js/[name].[fullhash].bundle.js",
         path: path.resolve(__dirname, "dist"),
         clean: true,
-        // publicPath: "/dist"
+        publicPath: "/",
     },
     module: {
         rules: [
+            {
+                test: /\.hbs$/,
+                use: [{
+                    loader: "handlebars-loader",
+                    options: {
+                        inlineRequires: "\/images\/",
+                    }
+                }]
+            },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -54,19 +63,28 @@ module.exports = {
             //         }
             //     ]
             // }
+            // {
+			// 	test: /\.(png|jpe?g|gif)$/i,
+			// 	loader: "file-loader",
+			// 	options: {
+			// 		name: "./img/[name].[ext]",
+            //         path: "dist/",
+            //         // publicPath: "/img",
+			// 		limit: 8192
+			// 	}
+            // },
             {
-				test: /\.(png|jpe?g|gif)$/i,
-				loader: "file-loader",
-				options: {
-					name: "./img/[name].[ext]",
-                    path: "dist/",
-                    // publicPath: "/img",
-					limit: 8192
-				}
-            },
-            {
-                test: /\.hbs$/,
-                use: ["handlebars-loader"]
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [{
+                    loader: "file-loader",
+                    options: {
+                        name: "./img/[name].[ext]",
+                        path: "dist/",
+                        // publicPath: "/img",
+                        limit: 8192,
+                        esModule: false
+                    }
+                }]
             }
         ]
     },
@@ -97,12 +115,7 @@ module.exports = {
 			},
             hash: true,
             chunks: ["contact"]
-        }),
-        // new HtmlWebpackPartialsPlugin({
-        //     path: path.resolve(__dirname, "./src/partials/footer.hbs"),
-        //     location: "commonfooter",
-        //     template_filename: ["index.hbs","contact.hbs"]
-        // })
+        })
     ],
     devtool: "inline-source-map",
     devServer: {

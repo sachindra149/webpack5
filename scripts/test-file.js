@@ -1,0 +1,1 @@
+export const TestFile = "This is a testing with importing JS file(s) & testing.";

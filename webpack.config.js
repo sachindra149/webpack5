@@ -119,9 +119,14 @@ module.exports = {
     ],
     devtool: "inline-source-map",
     devServer: {
-        contentBase: path.resolve(__dirname, "dist"),
+        static: {
+            directory: path.resolve(__dirname, "dist")
+        },
         compress: true,
         open: true,
         hot: true
+    },
+    performance: {
+        hints: false
     }
 }
